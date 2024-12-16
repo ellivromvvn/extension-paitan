@@ -1,0 +1,21 @@
+---
+title: "Forecasting NVAT Prices" 
+subtitle: "The Role of Data Science in Agriculture"
+author: Orville D. Hombrebueno
+date: "December 17, 2024"
+date-format: long
+format:
+  revealjs:
+    mainfont: "Cormorant Garamond"
+    footer: "Training-Workshop on Convergence of Gender, Livelihood, and Data-Driven Agriculture"
+    logo: images/logo-nvsu2.png
+    embed-resources: true
+editor: visual
+css: style.css
+---
+
+## Hi!
+
+My name is Orville D. Hombrebueno. I am a Math teacher at the College of Teacher Education, Nueva Vizcaya State University.
+
+![](images/orville2.jpg){fig-align="center" height="350"}

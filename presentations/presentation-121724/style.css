@@ -1,0 +1,14 @@
+.reveal .slide-logo {
+  height: 60px !important;
+  width: 60px !important;
+  max-width: unset !important;
+  max-height: unset !important;
+}
+
+.title {
+  font-size: 75px !important;
+}
+
+.subtitle {
+  font-size: 50px !important;
+}
