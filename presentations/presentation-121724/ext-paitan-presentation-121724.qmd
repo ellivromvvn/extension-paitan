@@ -12,6 +12,12 @@ format:
     embed-resources: true
 editor: visual
 css: style.css
+execute: 
+  echo: false
+  warning: false
+  message: false
+  error: false
+  cache: true
 ---
 
 ## Hi!
@@ -19,3 +25,207 @@ css: style.css
 My name is Orville D. Hombrebueno. I am a Math teacher at the College of Teacher Education, Nueva Vizcaya State University.
 
 ![](images/orville2.jpg){fig-align="center" height="350"}
+
+## This talk is about...
+
+::: {.incremental}
+1. Data Science
+
+2. Data Science in Agriculture
+
+3. Forecasting Vegetable Prices
+
+4. SARAI
+
+5. Challenges
+
+6. Conclusion
+:::
+
+## What is Data Science?
+
+::: {.fragment}
+Data science is the process of extracting insights from data.
+:::
+
+::: {.incremental}
+- Collect data from various sources (weather, soil, satellite images).
+
+- Clean and prepare the data.
+
+- Analyze the data to identify patterns and trends.
+
+- Use the insights to make informed decisions.
+:::
+
+## Data Science in Agriculture
+
+::: {.incremental}
+- *Predictive Analytics:* Forecast crop yields, potential problems, and optimal harvest times.
+
+- *Precision Agriculture:* Optimize resource usage (water, fertilizer, pesticides) for maximum efficiency.
+
+- *Disease and Pest Detection:* Identify and address threats early on.
+
+- *Market Analysis:* Analyze market trends to make informed farming decisions.
+:::
+
+## Forecasting NVAT Prices
+
+*Forecasting Monthly Vegetable Prices in the Province of Nueva Vizcaya*
+
+by J. N. P. Alap, G. G. Gonzales, E. J. Jimenez, C. D. Pastores,
+
+::: {.incremental}
+1.  Describe the monthly prices.
+2.  Fit models using automatic algorithms.
+3.  Evaluate the performance of these automatic algorithms.
+4.  Use the best automatic algorithm to generate forecasts.
+:::
+
+## Vegetable Prices at NVAT
+
+:::: {.columns}
+
+::: {.column width="55%"}
+
+<iframe data-external="1" src="https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2FNVATerminal%2Fposts%2F598346062576283&show_text=true&width=1200" width="500" height="500" style="border: 1px solid #ccc" scrolling="yes" frameborder=0></iframe>
+
+:::
+
+::: {.column width="45%"}
+
+::: {.fragment}
+12 Vegetables: 
+
+broccoli, cabbage, carrot, cauliflower, celery, chayote (bunga), cucumber, gabi (galyang), pepper (sultan), pepper (taiwan), potato, wombok
+:::
+
+:::
+
+::::
+
+## Monthly Prices for Pepper (Taiwan)
+
+```{r}
+#| label: preliminaries
+
+library(fpp3)
+library(tidyverse)
+library(gghighlight)
+library(MOTE)
+library(gt)
+library(scales)
+
+load("data/fmvp.RData")
+```
+
+```{r}
+#| label: fig-plot-pepper_taiwan
+#| fig-cap: "Monthly Prices for Pepper (Taiwan)"
+#| fig-height: 4.75
+
+nvat_monthly_long |>
+  filter(vegetable == "pepper_taiwan") |> 
+  ggplot(aes(x = date, y = price)) +
+  geom_line(
+    color = "darkgreen",
+    linewidth = 0.75
+  ) +
+  scale_x_date(
+    date_breaks = "1 year",
+    date_labels = "%Y"
+  ) +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(size = 14),
+    axis.text.y = element_text(size = 14),
+    axis.title.x = element_text(size = 16),
+    axis.title.y = element_text(size = 16)
+  ) +
+  labs(
+    y = "Price",
+    x = "Year"
+  )
+```
+
+## STL Decomposition
+
+```{r}
+#| label: fig-stl-pepper_taiwan
+#| fig-cap: "STL Decomposition of Pepper (Taiwan)"
+#| fig-height: 4.75
+
+nvat_monthly_long_ts |>
+  filter(vegetable == "pepper_taiwan") |>
+  model(STL(price)) |>
+  components() |>
+  autoplot() +
+  theme_minimal()+
+  theme(
+    axis.text.x = element_text(size = 14),
+    axis.title.x = element_text(size = 16),
+    axis.title.y = element_text(size = 16)
+  ) +
+  labs(
+    y = "Price",
+    x = "Date"
+  )
+```
+
+## Forecast for Pepper (Taiwan)
+
+```{r}
+#| label: fig-forecast-pepper_taiwan
+#| fig-cap: "Forecast for Pepper (Taiwan)"
+#| fig-height: 4.75
+
+fc_pepper_taiwan |>
+  autoplot(slice_tail(pepper_taiwan, n=24)) +
+  theme_minimal() +
+  labs(
+    y = "Price",
+    x = "Date"
+  ) +
+  theme(
+    axis.text.x = element_text(size = 14),
+    axis.text.y = element_text(size = 14),
+    axis.title.x = element_text(size = 16),
+    axis.title.y = element_text(size = 16),
+    legend.text = element_text(size = 14),
+    legend.title = element_text(size = 16)
+  ) +
+  labs(
+    y = "Price",
+    x = "Date"
+  )
+```
+
+## SARAI
+
+<iframe data-external="1" src="https://sarai.ph/" width="1200" height="500" style="border: 1px solid #ccc" frameborder=0></iframe>
+
+## Challenges
+
+Here are three challenges identified by Ibrahim (2023) when using data science in agriculture.
+
+::: {.incremental}
+- Lack of understanding.
+
+- Availability of data.
+
+- Lack of skills.
+:::
+
+## Conclusion
+
+::: {.incremental}
+- Data science can improve farming.
+
+- There are challenges.
+
+- The future is bright.
+:::
+
+# Thank you!
