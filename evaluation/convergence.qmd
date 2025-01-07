@@ -1,0 +1,119 @@
+---
+title: "Convergence of Gender, Livelihood and Data-Driven Agriculture Training - Workshop"
+subtitle: "Summary of Evaluation"
+format: 
+  docx:
+    reference-doc: template.docx
+editor: visual
+execute:
+  echo: FALSE
+  warning: FALSE
+  message: FALSE
+---
+
+```{r}
+#| label: load-packages
+
+library(tidyverse)
+library(readr)
+library(ggstats)
+library(labelled)
+library(forcats)
+```
+
+```{r}
+#| label: load-data
+
+labs <- c(
+  "Poor",
+  "Fair",
+  "Satisfactory",
+  "Very Satisfactory",
+  "Excellent"
+)
+
+items <- c(
+  "Relevance",
+  "Timeliness",
+  "Overall Rating"
+)
+
+data1 <- read_csv(
+  "data/evaluation-convergence.csv",
+  col_types = cols(
+    training = col_character(),
+    date = col_date(format = "%d/%m/%Y"),
+    venue = col_character(),
+    b_day = col_date(format = "%d/%m/%Y"),
+    level = col_character(),
+    q1a = col_factor(
+      levels = c("1", "2", "3", "4", "5"),
+      ordered = T
+    ),
+    q1b = col_factor(
+      levels = c("1", "2", "3", "4", "5"),
+      ordered = T
+    ),
+    q1c = col_factor(
+      levels = c("1", "2", "3", "4", "5"),
+      ordered = T
+    )
+  )
+)
+```
+
+# Ratings
+
+The training was evaluated by 24 participants. Most of the ratings for relevance, timeliness, and overall rating are excellent. The percentage of ratings for each item is shown in @fig-items. Relevance, timeliness, and overall rating has a rating of excellent with means `r round(mean(as.numeric(data1$q1a)), 2)`, `r round(mean(as.numeric(data1$q1b)), 2)`, and `r round(mean(as.numeric(data1$q1c)), 2)` respectively.
+
+```{r}
+#| label: fig-items
+#| fig-cap: "Percentage of Ratings"
+#| fig-width: 6.5
+
+data1 |>
+  select(q1a:q1c) |>
+  mutate(
+    q1a = fct_recode(
+      q1a,
+      "Poor" = "1",
+      "Fair" = "2",
+      "Satisfactory" = "3",
+      "Very Satisfactory" = "4",
+      "Excellent" = "5"
+    ),
+    q1b = fct_recode(
+      q1b,
+      "Poor" = "1",
+      "Fair" = "2",
+      "Satisfactory" = "3",
+      "Very Satisfactory" = "4",
+      "Excellent" = "5"
+    ),
+    q1c = fct_recode(
+      q1c,
+      "Poor" = "1",
+      "Fair" = "2",
+      "Satisfactory" = "3",
+      "Very Satisfactory" = "4",
+      "Excellent" = "5"
+    )
+  ) |>
+  gglikert(
+    variable_labels = c(
+      q1a = "Relevance",
+      q1b = "Timeliness",
+      q1c = "Overall Rating"
+    ),
+    cutoff = 0,
+    add_totals = FALSE
+  )
+```
+
+# Other training/activity/technical service needed
+
+The participants primarily requested more training in mushroom production and the making of mushroom products. They also requested training in baking, cooking, driving, dressmaking, tailoring, manicure and pedicure, cosmetology, accounting, and bookkeeping.
+
+# Comment/suggestions on how to improve our services
+
+The participants expressed gratitude for the training, highlighting how much they learned, particularly in mushroom production. They emphasized the desire for more continuous training, monitoring, and support from the instructors to further enhance their skills. Many also requested additional time or days for focused training on specific topics. Overall, the feedback indicates a strong appreciation for the program and a desire for further development and assistance in the future.
