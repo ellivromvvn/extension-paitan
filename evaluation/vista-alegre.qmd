@@ -1,0 +1,130 @@
+---
+title: "Intersection of Gender, Livelihood, and Disaster Risk Reduction Management"
+subtitle: "Barangay Vista Alegre, Bayombong, Nueva Vizcaya"
+date: February 19, 2025
+date-format: long
+author: Summary of Evaluation
+format: 
+  docx:
+    reference-doc: template.docx
+editor: visual
+execute:
+  echo: FALSE
+  warning: FALSE
+  message: FALSE
+---
+
+```{r}
+#| label: load-packages
+
+library(tidyverse)
+library(readr)
+library(ggstats)
+library(labelled)
+library(forcats)
+```
+
+```{r}
+#| label: load-data
+
+data1 <- read_csv(
+  "data/vista-alegre.csv",
+  col_types = cols(
+    q1 = col_factor(
+      levels = c("1", "2", "3", "4", "5"),
+      ordered = T
+    ),
+    q2 = col_factor(
+      levels = c("1", "2", "3", "4", "5"),
+      ordered = T
+    ),
+    q3 = col_factor(
+      levels = c("1", "2", "3", "4", "5"),
+      ordered = T
+    ),
+    gender =  col_factor(
+      levels = c("Male", "Female")
+    )
+  )
+)
+```
+
+# Ratings
+
+The training was evaluated by 31 participants. Most of the ratings for relevance, timeliness, and overall rating are excellent. The percentage of ratings for each item is shown in @fig-items. Relevance, timeliness, and overall rating has a rating of excellent with means `r round(mean(as.numeric(data1$q1)), 2)`, `r round(mean(as.numeric(data1$q2)), 2)`, and `r round(mean(as.numeric(data1$q3)), 2)` respectively.
+
+```{r}
+#| label: fig-items
+#| fig-cap: "Percentage of Ratings"
+#| fig-width: 6.5
+
+data1 |>
+  select(q1:q3) |>
+  mutate(
+    q1 = fct_recode(
+      q1,
+      "Poor" = "1",
+      "Fair" = "2",
+      "Satisfactory" = "3",
+      "Very Satisfactory" = "4",
+      "Excellent" = "5"
+    ),
+    q2 = fct_recode(
+      q2,
+      "Poor" = "1",
+      "Fair" = "2",
+      "Satisfactory" = "3",
+      "Very Satisfactory" = "4",
+      "Excellent" = "5"
+    ),
+    q3 = fct_recode(
+      q3,
+      "Poor" = "1",
+      "Fair" = "2",
+      "Satisfactory" = "3",
+      "Very Satisfactory" = "4",
+      "Excellent" = "5"
+    )
+  ) |>
+  gglikert(
+    variable_labels = c(
+      q1 = "Relevance",
+      q2 = "Timeliness",
+      q3 = "Overall Rating"
+    ),
+    cutoff = 0,
+    add_totals = FALSE
+  )
+```
+
+# Other training/activity/technical service needed
+
+During the event, participants expressed interest in a range of additional training, activities, and technical services to enhance their skills and livelihood opportunities. The identified needs include:
+
+- **Livelihood and Skills Training:**
+Handicraft making, urban gardening, mushroom production, vermi composting, dressmaking, sewing, bookkeeping, carpentry, and masonry.
+
+- **Food-related Trainings:**
+Food processing (frequently mentioned), bread and pastry making, cake and pastry making, and additional trainings on food preservation and processing.
+
+- **Technical and Vocational Skills:**
+Glass cutting, driving, and fish pond management (including handling techniques).
+
+The repeated mention of food processing and dressmaking highlights a strong interest in these areas.
+
+# Comment/suggestions on how to improve our services
+
+Participants expressed appreciation for the program, frequently offering thanks and congratulatory remarks. Key feedback includes:
+
+- **Positive Acknowledgments:**
+Multiple participants conveyed gratitude (e.g., “Thank you,” “More power,” “Ang galing!”) and commended the organizers for a well-delivered and informative session (“Perfect explanation,” “Congratulations!”).
+
+- **Suggestions for Improvement:**
+
+    - **Scheduling Concerns:** A participant suggested starting earlier to accommodate everyone’s availability and ensure full participation.
+
+    - **Training Needs:** Several requested more training sessions, especially in their barangay, highlighting a desire for continued capacity-building efforts.
+
+    - **Sustained Engagement:** Follow-ups were recommended to ensure continuity and to deepen learning outcomes from the initial session.
+
+Overall, the feedback reflects strong participant engagement, satisfaction with the current program, and eagerness for more targeted training opportunities.
