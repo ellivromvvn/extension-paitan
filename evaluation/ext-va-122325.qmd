@@ -1,0 +1,122 @@
+---
+title: "Training-Workshop on Building Resilient Communities: DRRMT Training and Livelihood Formation for Women's Organization"
+date: "December 23, 2025"
+author:
+  - "Summary of Evaluation"
+  - "Barangay Vista Alegre"
+format: 
+  docx:
+    reference-doc: template.docx
+editor: visual
+execute:
+  echo: FALSE
+  warning: FALSE
+  message: FALSE
+---
+
+```{r}
+#| label: load-packages
+
+library(tidyverse)
+library(readr)
+library(ggstats)
+library(labelled)
+library(forcats)
+```
+
+```{r}
+#| label: load-data
+
+data1 <- read_csv(
+  "data/eval-paitan-vista-alegre-12222325.csv",
+  col_types = cols(
+    q1 = col_factor(
+      levels = c("1", "2", "3", "4", "5"),
+      ordered = T
+    ),
+    q2 = col_factor(
+      levels = c("1", "2", "3", "4", "5"),
+      ordered = T
+    ),
+    q3 = col_factor(
+      levels = c("1", "2", "3", "4", "5"),
+      ordered = T
+    ),
+  )
+) |>
+  filter(Barangay == "Vista Alegre") |>
+  select(q1:q3)
+```
+
+# Ratings
+
+The training was evaluated by `r nrow(data1)` participants. Most of the ratings for relevance, timeliness, and overall rating are excellent. The percentage of ratings for each item is shown in @fig-items. Relevance, timeliness, and overall rating has a rating of excellent with means `r round(mean(as.numeric(data1$q1)), 2)`, `r round(mean(as.numeric(data1$q2)), 2)`, and `r round(mean(as.numeric(data1$q3)), 2)` respectively.
+
+```{r}
+#| label: fig-items
+#| fig-cap: "Percentage of Ratings"
+#| fig-width: 6.5
+
+data1 |>
+  mutate(
+    q1 = fct_recode(
+      q1,
+      "Poor" = "1",
+      "Fair" = "2",
+      "Satisfactory" = "3",
+      "Very Satisfactory" = "4",
+      "Excellent" = "5"
+    ),
+    q2 = fct_recode(
+      q2,
+      "Poor" = "1",
+      "Fair" = "2",
+      "Satisfactory" = "3",
+      "Very Satisfactory" = "4",
+      "Excellent" = "5"
+    ),
+    q3 = fct_recode(
+      q3,
+      "Poor" = "1",
+      "Fair" = "2",
+      "Satisfactory" = "3",
+      "Very Satisfactory" = "4",
+      "Excellent" = "5"
+    )
+  ) |>
+  gglikert(
+    variable_labels = c(
+      q1 = "Relevance",
+      q2 = "Timeliness",
+      q3 = "Overall Rating"
+    ),
+    cutoff = 0,
+    add_totals = FALSE
+  )
+```
+
+# Other Training / Activity / Technical Service Needed
+
+During the event, participants expressed the following interests in other training, activity, and technical services needed:
+
+- **Livelihood and Entrepreneurship Development:** Trainings related to starting and managing one’s own business.
+
+- **Food Production:** Mushroom production and processing, turmeric-based product development, and wine production.
+
+- **Arts, Crafts, and Creative Skills:** Bead making (including ethnic bracelet and headdress–inspired designs).
+
+- **Technical and Vocational Skills:** Dress making.
+
+The repeated mention of mushroom production and processing and wine making reflects strong community interest in these areas.
+
+# Comments / Suggestions on How to Improve Our Services
+
+Participants expressed strong appreciation for the training. Several respondents conveyed positive remarks such as congratulations and encouragement to continue the program.
+
+**Key feedback includes:**
+
+- **Positive Feedback:** Participants praised the quality of the training and the effectiveness of the session, noting that it was excellent and informative.
+
+- **Suggestions for Improvement:** There were repeated requests for more trainings and seminars, particularly to broaden participants’ knowledge and skills, including deeper learning on mushroom production and processing.
+
+Overall, the feedback reflects high participant satisfaction and a strong demand for additional and more frequent capacity-building activities.

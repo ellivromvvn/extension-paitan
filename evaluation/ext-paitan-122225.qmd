@@ -1,0 +1,126 @@
+---
+title: "Training-Workshop on Building Resilient Communities: DRRMT Training and Livelihood Formation for Women's Organization"
+date: "December 22, 2025"
+author:
+  - "Summary of Evaluation"
+  - "Barangay Paitan"
+format: 
+  docx:
+    reference-doc: template.docx
+editor: visual
+execute:
+  echo: FALSE
+  warning: FALSE
+  message: FALSE
+---
+
+```{r}
+#| label: load-packages
+
+library(tidyverse)
+library(readr)
+library(ggstats)
+library(labelled)
+library(forcats)
+```
+
+```{r}
+#| label: load-data
+
+data1 <- read_csv(
+  "data/eval-paitan-vista-alegre-12222325.csv",
+  col_types = cols(
+    q1 = col_factor(
+      levels = c("1", "2", "3", "4", "5"),
+      ordered = T
+    ),
+    q2 = col_factor(
+      levels = c("1", "2", "3", "4", "5"),
+      ordered = T
+    ),
+    q3 = col_factor(
+      levels = c("1", "2", "3", "4", "5"),
+      ordered = T
+    ),
+  )
+) |>
+  filter(Barangay == "Paitan") |>
+  select(q1:q3)
+```
+
+# Ratings
+
+The training was evaluated by `r nrow(data1)` participants. Most of the ratings for relevance, timeliness, and overall rating are excellent. The percentage of ratings for each item is shown in @fig-items. Relevance, timeliness, and overall rating has a rating of excellent with means `r round(mean(as.numeric(data1$q1)), 2)`, `r round(mean(as.numeric(data1$q2)), 2)`, and `r round(mean(as.numeric(data1$q3)), 2)` respectively.
+
+```{r}
+#| label: fig-items
+#| fig-cap: "Percentage of Ratings"
+#| fig-width: 6.5
+
+data1 |>
+  mutate(
+    q1 = fct_recode(
+      q1,
+      "Poor" = "1",
+      "Fair" = "2",
+      "Satisfactory" = "3",
+      "Very Satisfactory" = "4",
+      "Excellent" = "5"
+    ),
+    q2 = fct_recode(
+      q2,
+      "Poor" = "1",
+      "Fair" = "2",
+      "Satisfactory" = "3",
+      "Very Satisfactory" = "4",
+      "Excellent" = "5"
+    ),
+    q3 = fct_recode(
+      q3,
+      "Poor" = "1",
+      "Fair" = "2",
+      "Satisfactory" = "3",
+      "Very Satisfactory" = "4",
+      "Excellent" = "5"
+    )
+  ) |>
+  gglikert(
+    variable_labels = c(
+      q1 = "Relevance",
+      q2 = "Timeliness",
+      q3 = "Overall Rating"
+    ),
+    cutoff = 0,
+    add_totals = FALSE
+  )
+```
+
+# Other training/activity/technical service needed
+
+During the event, participants expressed the following interests in other training, activity, and technical services needed:
+
+-   **Livelihood and Entrepreneurship Development:** Business-related trainings, women and business–related trainings, and livelihood programs addressing women’s needs.
+
+-   **Agriculture and Food Production:** Rice production and pest management training, Bread making and baking activities.
+
+-   **Technical and Vocational Skills:** Dressmaking and garment production, electrical servicing, and automotive.
+
+The repeated mention of dress making and bread making highlights a strong interest in these areas.
+
+# Comments / Suggestions on How to Improve Our Services
+
+Participants generally expressed positive feedback particularly appreciating the competence of the speakers and the quality of instruction.
+
+**Positive Observations:**
+
+Participants commended the presence of skilled speakers and trainers, noting that the instructors were effective and capable of facilitating learning.
+
+**Suggestions for Improvement:**
+
+-   **Discipline and Timeliness:** Participants emphasized the importance of unity, discipline, and early or timely conduct of activities to ensure smooth implementation.
+
+-   **Capacity-Building Needs:** There were repeated requests for more training opportunities, particularly in dressmaking.
+
+-   **Continuous Development:** Participants suggested sustained engagement through continuous review of performance and follow-up activities to further enhance skills and learning outcomes.
+
+Overall, the feedback indicates satisfaction with the trainers and program delivery, alongside a strong demand for additional trainings and continuous improvement initiatives.
